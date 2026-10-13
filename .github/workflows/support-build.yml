@@ -92,7 +92,10 @@ jobs:
           mkdir -p out
 
           for arch in x86_64 aarch64; do
-            src="$(find "raw/windows" -type d -path "*rustdesk-unsigned-windows-${arch}/rustdesk" -print -quit)"
+            src="raw/windows/rustdesk-unsigned-windows-${arch}"
+            if [ ! -d "${src}" ]; then
+              src="$(find "raw/windows" -type d -path "*rustdesk-unsigned-windows-${arch}/rustdesk" -print -quit)"
+            fi
             test -n "${src}"
             mkdir -p "stage/windows-${arch}"
             cp -a "${src}/." "stage/windows-${arch}/"
