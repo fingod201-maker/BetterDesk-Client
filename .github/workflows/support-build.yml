@@ -16,6 +16,12 @@ on:
         required: true
         type: string
 
+      targets_json:
+        description: 'Requested targets JSON (informational; all platforms are always built)'
+        required: false
+        type: string
+        default: ''
+
 permissions:
   contents: read
   actions: read
