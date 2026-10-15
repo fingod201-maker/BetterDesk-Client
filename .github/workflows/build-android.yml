@@ -37,9 +37,6 @@ env:
 jobs:
   build-android:
     runs-on: ubuntu-22.04
-    env:
-      ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
-      ANDROID_NDK_ROOT: ${{ steps.ndk.outputs.ndk-path }}
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -90,20 +87,30 @@ jobs:
 
       - name: Build Rust for arm64-v8a
         working-directory: flutter
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
+          ANDROID_NDK_ROOT: ${{ steps.ndk.outputs.ndk-path }}
         run: bash ndk_arm64.sh
 
       - name: Build Rust for armeabi-v7a
         working-directory: flutter
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
+          ANDROID_NDK_ROOT: ${{ steps.ndk.outputs.ndk-path }}
         run: bash ndk_arm.sh
 
       - name: Build vcpkg deps (arm64-v8a)
         working-directory: flutter
         continue-on-error: true
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: bash build_android_deps.sh arm64-v8a
 
       - name: Build vcpkg deps (armeabi-v7a)
         working-directory: flutter
         continue-on-error: true
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: bash build_android_deps.sh armeabi-v7a
 
       - name: Flutter pub get
