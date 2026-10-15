@@ -30,10 +30,16 @@ class _MyGroupState extends State<MyGroup> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (!gFFI.userModel.isLogin) {
+            if (!gFFI.userModel.isLogin) {
         return Center(
-            child: ElevatedButton(
-                onPressed: loginDialog, child: Text(translate("Login"))));
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+                translate("Sign-in is disabled in BetterDesk. Use Your ID and permanent password for unattended access."),
+                textAlign: TextAlign.center,
+            ),
+        ),
+      );
       } else if (gFFI.userModel.networkError.isNotEmpty) {
         return netWorkErrorWidget();
       } else if (gFFI.groupModel.groupLoading.value && gFFI.groupModel.emtpy) {
